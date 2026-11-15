@@ -2,7 +2,7 @@
 
 [English](guide.en.md) · [方法说明](methods.zh.md) · [仓库首页](../README_中文.md) · [Project Leap 主站](https://dingchengwang.github.io/Project-Leap/zh/)
 
-本指南适用于 **Project Leap 1.0.0，build 1** 内的 Cell Counting **1.0.0** 模块。本次提供模块包，主程序 DMG 的公开下载仍在准备中。以下操作从 Project Leap 软件内部开始。
+本指南适用于 **Project Leap 1.0.0（构建号 1）** 内的 Cell Counting **1.0.0** 模块。主程序下载见 [Project Leap 下载页面](https://dingchengwang.github.io/Project-Leap/zh/downloads/)。以下操作从 Project Leap 软件内部开始。
 
 ## 安装模块并选择图像
 

@@ -4,7 +4,7 @@
 
 Cell Counting 是 **Project Leap** 内的细胞计数模块，用于多通道荧光 TIFF 图像。模块分别识别 DAPI 核和所选辅助通道中的胞体，再匹配为细胞记录，供用户逐层审核和调整计数。
 
-本次提供模块 **1.0.0**，适用于 **Project Leap 1.0.0，build 1**。主程序 DMG 的公开下载仍在准备中。
+本次提供模块 **1.0.0**，适用于 **Project Leap 1.0.0（构建号 1）**。主程序下载见 [Project Leap 下载页面](https://dingchengwang.github.io/Project-Leap/zh/downloads/)。
 
 ## 使用模块
 

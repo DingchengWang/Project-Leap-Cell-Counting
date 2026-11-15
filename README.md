@@ -4,7 +4,7 @@
 
 Cell Counting is a module for reviewing and counting cells in multichannel fluorescence TIFF images within **Project Leap**. It combines DAPI nuclear observations with independently detected bodies in a selected support channel, then presents the resulting cell records for slice-by-slice review and editing.
 
-This release provides module **1.0.0** for **Project Leap 1.0.0, build 1**. The public application DMG download remains in preparation.
+This release provides module **1.0.0** for **Project Leap 1.0.0 (build 1)**. Download the main application from the [Project Leap download page](https://dingchengwang.github.io/Project-Leap/en/downloads/).
 
 ## Use the module
 

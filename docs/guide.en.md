@@ -2,7 +2,7 @@
 
 [中文](guide.zh.md) · [Methods](methods.en.md) · [Repository home](../README.md) · [Project Leap website](https://dingchengwang.github.io/Project-Leap/en/)
 
-This guide describes Cell Counting **1.0.0** in **Project Leap 1.0.0, build 1**. This release provides the module package; the public application DMG download remains in preparation. The workflow below starts inside the Project Leap application.
+This guide describes Cell Counting **1.0.0** in **Project Leap 1.0.0 (build 1)**. Download the main application from the [Project Leap download page](https://dingchengwang.github.io/Project-Leap/en/downloads/). The workflow below starts inside the Project Leap application.
 
 ## Install and select an image
 
