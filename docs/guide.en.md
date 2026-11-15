@@ -2,7 +2,7 @@
 
 [中文](guide.zh.md) · [Methods](methods.en.md) · [Repository home](../README.md) · [Project Leap website](https://dingchengwang.github.io/Project-Leap/en/)
 
-This guide describes Cell Counting **1.0.0** in **Project Leap 1.0.0 (build 1)**. Download the main application from the [Project Leap download page](https://dingchengwang.github.io/Project-Leap/en/downloads/). The workflow below starts inside the Project Leap application.
+This guide describes Cell Counting **1.0.0** in **Project Leap v1.0.0**. Download the main application from the [Project Leap download page](https://dingchengwang.github.io/Project-Leap/en/downloads/). The workflow below starts inside the Project Leap application.
 
 ## Install and select an image
 
@@ -10,7 +10,7 @@ This guide describes Cell Counting **1.0.0** in **Project Leap 1.0.0 (build 1)**
 2. Click **Choose image…**, or drag one `.tif` or `.tiff` file into the input area. Use an 8-bit or 16-bit multichannel fluorescence image containing DAPI and a separate support marker.
 3. If the file contains multiple image series or time points, choose the intended **Image series** and **Time point**. These choices select the data for this run.
 4. Check the selected **DAPI counting channel** against the image. The application tries to identify it automatically; choose the correct source channel if it is missing or wrong.
-5. Select a different **Support channel**, then choose its **Support marker**: eGFP, Biocytin, ALDH1L1, or a custom name. Both selections are required. The marker records which signal you are using to assess bodies and nuclear surroundings.
+5. Select a different **Support channel**, then choose its **Support marker**: eGFP, Biocytin, ALDH1L1, or a custom name. Both selections are required. The marker records which signal you are using to assess bodies and nuclear surroundings. Current real-data evaluation is limited to Biocytin; see [Methods](methods.en.md#evidence-scope) for the evaluation scope.
 6. Under **Display channels and colors**, select at least one source channel for review. Keep the channels you will need for comparing DAPI and support signal. In each channel's color text field, enter a `#RRGGBB` value or leave it empty to use the default color. You can toggle these selected channels during review.
 
 The application automatically checks the image and calibration before running. Multiplane images need valid X/Y/Z values in micrometres and square XY sampling; true single-plane images need valid X/Y values. If the application reports missing or incompatible calibration, use a TIFF exported with the correct source metadata.
@@ -28,11 +28,11 @@ Work through the Z planes while comparing the selected channels. Check whether a
 | Label | Appearance | Meaning in the editor | Included in total? |
 |---|---|---|---|
 | Astrocyte | Green numbered circle | Accepted cell record | Yes |
-| High Likelihood | Amber diamond | Review object with the specific hint described in [Methods](methods.en.md) | Only after acceptance |
+| High Likelihood | Amber diamond | Nuclear support passes the acceptance rule, with the algorithm's XY search-region boundary as the only remaining limitation | Only after acceptance |
 | Unrecognized | Yellow point | Other review object | Only after acceptance |
 | Neurons | Purple square | Excluded object | No, unless accepted manually |
 
-These are workflow categories. In particular, Neurons means that the object is excluded by the current counting rule; it does not establish that the object is biologically a neuron. The evaluation scope of the automatic rules is described once in [Methods](methods.en.md#evidence-scope).
+These labels describe the editor's counting states. Neurons is the excluded category; its biological identity needs to be assessed from the staining and image evidence. High Likelihood remains under review until you accept it using the actions below.
 
 ## Adjust the count
 

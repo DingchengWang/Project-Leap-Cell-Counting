@@ -2,15 +2,17 @@
 
 [中文](README_中文.md) · [Project Leap website](https://dingchengwang.github.io/Project-Leap/en/)
 
-Cell Counting is a module for reviewing and counting cells in multichannel fluorescence TIFF images within **Project Leap**. It combines DAPI nuclear observations with independently detected bodies in a selected support channel, then presents the resulting cell records for slice-by-slice review and editing.
+Cell Counting is a **Project Leap** module for reviewing and counting candidate cells in multichannel fluorescence TIFF images. It uses DAPI and a separate support-marker channel to detect candidate nuclei and bodies, associate them where the image evidence supports a unique match, and present the resulting cell records for inspection on the original Z planes.
 
-This release provides module **1.0.0** for **Project Leap 1.0.0 (build 1)**. Download the main application from the [Project Leap download page](https://dingchengwang.github.io/Project-Leap/en/downloads/).
+Researchers can review the proposed records, add missed cells, merge duplicate records, and exclude incorrect detections before saving the count. The result includes a numbered image, a per-cell CSV table, and a session that preserves the observations and edits for later review. Accepted records can contain a nucleus, an independently detected body, or a uniquely associated pair.
+
+This release provides module **1.0.0** for **Project Leap v1.0.0**. Download the main application from the [Project Leap download page](https://dingchengwang.github.io/Project-Leap/en/downloads/).
 
 ## Use the module
 
-Install Cell Counting from the module page inside Project Leap. The application manages the shared scientific runtime and fixed Cellpose model. This repository does not provide a separate manual installer.
+Install Cell Counting from the module page inside Project Leap. The application manages the module, shared scientific runtime, and fixed Cellpose model.
 
-Import a TIFF, choose the image series and time point when needed, confirm DAPI and a different support channel, and start analysis. Review the proposed cells on the original Z slices, adjust the count, and confirm to save a numbered image, a CSV table, and a recoverable editing session.
+To start, import a TIFF, choose the image series and time point when needed, and confirm the DAPI channel, a different support channel, and its marker. The user guide takes you from these choices through review and saving.
 
 - [User guide](docs/guide.en.md): input selection, review controls, saving, reopening, and output columns.
 - [Methods](docs/methods.en.md): local Z detection, original-grid recovery, support-body detection, and cell identity.

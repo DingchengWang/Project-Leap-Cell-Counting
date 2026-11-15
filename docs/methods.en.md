@@ -2,13 +2,15 @@
 
 [中文](methods.zh.md) · [User guide](guide.en.md) · [Repository home](../README.md)
 
-Module **1.0.0** counts accepted cell records assembled from two kinds of observation: DAPI nuclei and independently detected support-channel bodies. A nucleus and a body can become one cell when their original-coordinate evidence establishes a unique association. A qualifying body can also count without a detected DAPI nucleus.
+Module **1.0.0** counts accepted cell records assembled from two kinds of observation: DAPI nuclei and independently detected support-channel bodies. A record can contain a nucleus alone, a body alone, or a nucleus–body pair whose original-coordinate evidence establishes a unique association. Each record contributes one to the total when its final state is accepted and it has not been deleted.
+
+Here, an observation is a record of a detected nucleus or body, including its mask, position, and measured evidence. A cell record links observations assigned to the same cell.
 
 ## Inputs and coordinate system
 
 The application supplies one image series and one time point from an unsigned 8-bit or 16-bit multichannel TIFF. The request identifies a DAPI channel, a different support channel, its declared marker, and the channels and colors used for display. Multiplane data require actual X, Y, and Z physical calibration; a genuine single-plane input requires X and Y calibration and is processed with its available planar evidence. The desktop input check also requires square XY sampling for multiplane images.
 
-All scientific masks use the original image grid. Coordinates, physical distances, and source-Z intersections remain tied to that grid. The support marker name records the user's channel declaration; eGFP, Biocytin, ALDH1L1, and custom names do not select separate hidden algorithms. Display colors and channel visibility affect the review image only.
+All scientific masks use the original image grid. Coordinates, physical distances, and source-Z intersections remain tied to that grid. The support marker name records the user's channel declaration; eGFP, Biocytin, ALDH1L1, and custom names use the same analysis rules. Display colors and channel visibility affect the review image only.
 
 ## Find local work across the stack
 
@@ -38,7 +40,7 @@ Primary and weak candidates use the same predicted flow and score fields. If an 
 
 The two-dimensional model masks constrain lateral identity. The engine then reads original DAPI voxels around each event and measures local signal concentration in three dimensions. It defines signal events relative to each plane's median and smooths their occupancy using a physically calibrated Gaussian bandwidth of 0.568 µm. This bandwidth sets the measurement scale; it is not an assumed nuclear diameter.
 
-Connected density regions establish candidate three-dimensional families. A family associated with one model label remains one event despite internal intensity peaks. When several model labels share a family, their measured density maxima seed a watershed separation. Disconnected families retain distinct event identities. Regions without matching model evidence remain recorded investigation positions.
+Connected signal-density regions form candidate three-dimensional regions. A region associated with one model label remains one event despite internal intensity peaks. When several model labels share a region, their measured density maxima seed a watershed separation. Disconnected regions retain distinct event identities. Regions without matching model evidence are recorded as locations for follow-up and do not produce nucleus objects.
 
 Recovery expands its source-image window when observed density or axial-endpoint evidence requires more context. It records unresolved identity and boundary evidence for review. Overlapping nuclear observations from different windows are reconciled using their actual masks; a reciprocal overlap of at least 0.5 within the shared native region can identify a repeated observation, while competing overlap remains ambiguous. Each final nuclear observation stores a representative point and an interior anchor on every source Z plane that its mask actually intersects.
 
@@ -62,7 +64,9 @@ The engine measures each potentially associated nucleus–body pair in original 
 
 The resolver then checks the whole set of candidate relations. It joins a pair only when the correspondence is unique on both sides and has no unresolved competing relation. Partial enclosure or competition leaves separate reviewable records. If both the representative and the entire core are outside the envelope, the relation is a non-match. Whole-nucleus containment fractions are retained as measurements; centroid proximity and cross-kind mask overlap are not sufficient identity rules.
 
-A uniquely paired nucleus and body become one cell with both source observations. An unmatched accepted body remains a countable cell. The cell's per-Z anchor uses a real observation on that layer, preferring body evidence where available and retaining nuclear intersections on other layers. Thus one cell can be displayed on several Z planes while contributing only one to the total.
+A uniquely paired nucleus and body become one cell with both source observations. Unmatched nuclei and bodies retain separate cell records. An ambiguous association makes the affected records `review`; otherwise, a record is `accepted` if at least one of its observations is accepted, `review` if none is accepted and at least one needs review, and `excluded` if all are excluded. This lets accepted nuclei and bodies count independently as well as in uniquely paired records.
+
+The cell's per-Z anchor uses a real observation on that layer, preferring body evidence where available and retaining nuclear intersections on other layers. Thus one cell can be displayed on several Z planes while contributing only one to the total.
 
 ## Review states and saved evidence
 
@@ -74,7 +78,7 @@ Only non-deleted cells with `status="accepted"` contribute to the count. `review
 
 ## Evidence scope
 
-The thresholds and geometric rules above describe the implemented development method. Current real-data evaluation uses Biocytin; it does not establish performance for the other selectable markers. Representative annotated real-mask validation of nucleus–body association remains pending. The interface names Astrocyte and Neurons therefore identify workflow categories, not independently validated biological cell types. A genuine single-plane input retains two-dimensional evidence and makes no axial-volume claim.
+The thresholds and geometric rules above describe the implemented counting method. Current real-data evaluation covers Biocytin; performance with the other selectable markers remains to be evaluated. The nucleus–body association rules still require validation against representative, manually annotated real masks. Astrocyte and Neurons identify accepted and excluded workflow categories; the module has not been independently validated as a biological cell-type classifier. A genuine single-plane input provides two-dimensional evidence only.
 
 ## Implementation and upstream sources
 

@@ -8,15 +8,16 @@ implemented in `engine/leap_cell_counting/support_discovery.py`.
 ## Evidence and counting
 
 DAPI observations describe nuclei. Independent Support observations describe
-native three-dimensional dense body regions. A qualified body observation can
-count without a successful DAPI Cellpose detection. Support does not manufacture
-a nuclear mask. The same physical cell is counted once after explicit
-nucleus/body association; competing associations remain reviewable.
+dense body regions in the original image grid. A cell record contains a nucleus,
+a body, or a uniquely associated nucleus–body pair. Unmatched nuclei and bodies
+retain independent records and can count when accepted. A uniquely paired
+record counts once; competing associations remain under review. Nuclear masks
+come from the DAPI route, and body masks contain measured Support-positive pixels.
 
 Nucleus/body association uses actual Z evidence, nuclear containment in the
 body association envelope, representative/core containment and competing
 observations. Cross-kind mask IoU and centroid distance alone are not identity
-rules. The approved geometric candidate requires the nuclear representative
+rules. A geometric candidate requires the nuclear representative
 and its entire maximal interior-distance core to lie in the body envelope,
 with actual positive body pixels on the representative's original Z. Only a
 unique correspondence on both sides merges. When both representative and core
@@ -26,8 +27,8 @@ remain descriptive rather than imposing an arbitrary percentage cutoff.
 
 The selected diffuse Support channel is processed according to its pixels and
 calibration. eGFP, Biocytin, ALDH1L1 and custom strings identify the declared
-marker; they do not select hidden algorithms or name-based gates. Current real
-validation data are Biocytin; other markers are not thereby validated.
+marker and use the same analysis rules. See the [methods](../methods.en.md#evidence-scope)
+for the scope of real-data evaluation.
 
 ## Label artifacts
 
@@ -57,7 +58,8 @@ must be rebased when that JSON is exported. `analysis.labels_path` remains
 `point.id` and `point.cell_id` are the same globally unique, opaque cell ID.
 Clients must not parse their prefixes. `point.label_artifact_id` and
 `point.label_id` identify a representative observation, not a global mask ID.
-Status is `accepted`, `review` or `excluded`; only accepted logical cells count.
+Status is `accepted`, `review` or `excluded`; only non-deleted accepted logical
+cells count.
 The UI displays accepted cells as **Astrocyte**, review cells carrying
 `review_hint: "likely_astrocyte"` as **High Likelihood**, other review cells as
 **Unrecognized**, and excluded cells as **Neurons**. High Likelihood and
@@ -72,13 +74,12 @@ nuclear observation whose original Support decision is accepted and whose only
 remaining limitation is the artificial XY search boundary. The engine omits
 the hint when other identity or model-boundary evidence is unresolved, when the
 cell's association is ambiguous, or when its associated body remains unresolved.
-This display hint does not increase the automatic count. Search-boundary
-geometry stays recorded separately from identity evidence, while its conservative
-count-state mapping preserves the accepted v4 automatic-count policy. No
-`cell_type` scientific output field is added.
+This display hint leaves the cell in `review` and does not increase the automatic
+count. Search-boundary geometry stays recorded separately from identity
+evidence. The record schema has no scientific `cell_type` output field.
 
-`point.source` preserves `auto`, `manual` and `merged`, and adds
-`support_body` (body only) and `dapi_support` (associated nucleus and body).
+`point.source` is `auto` (nucleus only), `support_body` (body only),
+`dapi_support` (associated nucleus and body), `manual` or `merged`.
 
 Each member of `point.source_observations` contains:
 
@@ -98,25 +99,28 @@ Each member of `point.source_observations` contains:
 
 The referenced observation must belong to that cell and have the exact same
 anchor on the same Z. Manual anchors may instead identify their manual parent
-point. Legacy and manual points need not invent mask observations.
+point. Legacy and manually added points may omit mask observations.
 
 `point.association.status` is `unmatched`, `one_to_one` or `ambiguous`, with
-explicit relation evidence and competing observation IDs. An unmatched accepted
-body remains accepted. A main-approved explicit one-to-one relation produces
-one cell containing both observations; a global development-validation label
-does not by itself define every cell's review status.
+explicit relation evidence and competing observation IDs. A unique match on
+both sides, with no unresolved competition, produces one cell containing both
+observations. Ambiguity places the affected records in `review`. Otherwise, a
+cell is `accepted` when at least one observation is accepted, `review` when none
+is accepted and at least one is under review, and `excluded` when all observations
+are excluded. Unmatched nuclei and bodies therefore retain their own decision
+as the cell's state.
 
 ## Editing and persistence
 
 Merge preserves complete observation payloads, deduplicated by
 `(artifact_id, label_id)`, and retains the actual chosen anchor provenance.
-The same key with conflicting payloads is an error, not a silent scientific
-merge. A manually merged cell receives a new opaque ID while source observation
+The same key with conflicting payloads causes the merge to fail.
+A manually merged cell receives a new opaque ID while source observation
 IDs stay stable. Delete/exclude and undo change cell annotation state without
 rewriting scientific mask files. Session/export/reopen preserves the registry,
 observations, association and per-Z anchor sources.
 
-Official schema1 historical counts and normal manual editing remain readable.
+Existing schema1 count records and normal manual edits remain readable.
 Independent body observations enter the accepted, review or excluded cell state
 directly.
 
