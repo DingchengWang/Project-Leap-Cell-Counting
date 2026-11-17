@@ -10,7 +10,7 @@ Cell Counting **1.0.0** runs within **Project Leap v1.0.0**. Download the main a
 
 ## Use the module
 
-Install Cell Counting from the module page inside Project Leap, then follow the user guide to select an image, run the analysis, and review the count.
+In Project Leap, open **Modules & Maintenance**, find **Cell Counting**, and click **Install analysis module**. Once installation finishes, open **Cell Counting** from the sidebar, then follow the user guide to select an image, run the analysis, and review the count.
 
 - [User guide](docs/guide.en.md): input selection, review controls, saving, reopening, and output columns.
 - [Methods](docs/methods.en.md): local Z detection, original-grid recovery, support-body detection, and cell identity.

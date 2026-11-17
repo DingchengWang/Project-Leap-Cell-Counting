@@ -6,7 +6,7 @@ This guide describes Cell Counting **1.0.0** in **Project Leap v1.0.0**. Downloa
 
 ## Install and select an image
 
-1. Open the Cell Counting module in Project Leap and install it if needed. The application also installs the required components.
+1. In Project Leap, open **Modules & Maintenance**, find **Cell Counting**, and click **Install analysis module** if it is not installed. The application also installs the required components. Wait until the button shows **Module ready**, then open **Cell Counting** from the sidebar.
 2. Click **Choose image…**, or drag one `.tif` or `.tiff` file into the input area. Use an 8-bit or 16-bit multichannel fluorescence image containing DAPI and a separate support marker.
 3. If the file contains multiple image series or time points, choose the intended **Image series** and **Time point**.
 4. Check the selected **DAPI counting channel** against the image. The application tries to identify it automatically; choose the correct source channel if it is missing or wrong.
