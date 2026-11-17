@@ -13,6 +13,18 @@ This guide describes Cell Counting **1.0.0** in **Project Leap v1.0.0**. Downloa
 5. Select a different **Support channel**, then choose its **Support marker**: eGFP, Biocytin, ALDH1L1, or a custom name. Both selections are required and identify the auxiliary signal used to assess bodies and nuclear surroundings. See [Methods](methods.en.md#evidence-scope) for the marker evaluation scope.
 6. Under **Display channels and colors**, select at least one source channel for review. Keep the channels you will need for comparing DAPI and support signal. In each channel's color text field, enter a `#RRGGBB` value or leave it empty to use the default color. You can toggle these selected channels during review.
 
+<!-- leap-media:start counting-analysis-channels -->
+<a href="images/counting-analysis-channels.png"><img src="images/counting-analysis-channels.png" alt="In this example, C1 is selected for DAPI and C2 for the Biocytin support signal." width="820"></a>
+
+*In this example, C1 is selected for DAPI and C2 for the Biocytin support signal.*
+<!-- leap-media:end counting-analysis-channels -->
+
+<!-- leap-media:start counting-display-channels -->
+<a href="images/counting-display-channels.png"><img src="images/counting-display-channels.png" alt="C1 and C2 are enabled for display, while C3 is disabled." width="820"></a>
+
+*C1 and C2 are enabled for display, while C3 is disabled.*
+<!-- leap-media:end counting-display-channels -->
+
 The application automatically checks the image and calibration before running. Multiplane images need valid X/Y/Z values in micrometres and square XY sampling; true single-plane images need valid X/Y values. If the application reports missing or incompatible calibration, use a TIFF exported with the correct source metadata.
 
 ## Run and inspect the result
@@ -22,6 +34,16 @@ Click **Start automatic counting**. The application analyzes the selected image 
 Use **MIP** to view the maximum-intensity projection across the stack, then move the Z slider to inspect the original planes. The interface displays Z planes starting at 1. On a single plane, a marker appears only when that object has a recorded position on the plane; MIP shows all non-deleted objects. The top-left **Total Astrocyte: N** is the number of accepted cells across the entire session, not a separate count of the current plane.
 
 Where cells overlap in the projection, compare the selected channels on the original Z planes to check their positions. Check whether each proposed object corresponds to a cell, whether two records belong to the same cell, and whether an unmarked cell should be added. A single cell can appear on several planes with the same count number. Pinch to zoom, scroll or drag to pan, and press **0** to fit the image to the window.
+
+<!-- leap-media:start counting-review-views -->
+<a href="images/counting-review-mip.png"><img src="images/counting-review-mip.png" alt="The MIP view shows accepted records and candidate objects awaiting review." width="960"></a>
+
+*The MIP view shows accepted records and candidate objects awaiting review.*
+
+<a href="images/counting-review-z-plane.png"><img src="images/counting-review-z-plane.png" alt="The editor shows Z plane 84 of 287, with a slider and channel switches for review." width="960"></a>
+
+*The editor shows Z plane 84 of 287, with a slider and channel switches for review.*
+<!-- leap-media:end counting-review-views -->
 
 ## Interpret the four labels
 

@@ -13,6 +13,18 @@
 5. 选择与 DAPI 不同的**辅助通道**，再选择**辅助标记物**：eGFP、Biocytin、ALDH1L1 或自定义名称。辅助通道用于识别胞体、判断核周信号；通道和标记物均须指定。标记物的评估范围见[方法说明](methods.zh.md#证据适用范围)。
 6. 在**显示通道与颜色**中至少选择一个源通道。保留审核时需要比较的 DAPI 和辅助信号通道；在各通道的颜色文本框中填写 `#RRGGBB`，也可留空使用默认颜色。进入审核后，可以切换这些预选通道的显隐。
 
+<!-- leap-media:start counting-analysis-channels -->
+<a href="images/counting-analysis-channels.png"><img src="images/counting-analysis-channels.png" alt="图中将 C1 选为 DAPI 通道，将 C2 选为 Biocytin 辅助通道。" width="820"></a>
+
+*图中将 C1 选为 DAPI 通道，将 C2 选为 Biocytin 辅助通道。*
+<!-- leap-media:end counting-analysis-channels -->
+
+<!-- leap-media:start counting-display-channels -->
+<a href="images/counting-display-channels.png"><img src="images/counting-display-channels.png" alt="图中选择显示 C1 和 C2，不显示 C3。" width="820"></a>
+
+*图中选择显示 C1 和 C2，不显示 C3。*
+<!-- leap-media:end counting-display-channels -->
+
 软件会在运行前自动检查图像及标定。多层图像需要有效的 X/Y/Z 微米标定和方形 XY 采样；只有一个 Z 层的图像需要有效的 X/Y 标定。如果界面提示标定缺失或不兼容，使用包含正确原图元数据的 TIFF。
 
 ## 开始分析并逐层查看
@@ -22,6 +34,16 @@
 使用 **MIP** 查看整个 Z 堆栈的最大强度投影，再移动 Z 滑块查看原始切片。界面的 Z 层从 1 开始编号。在单层画面中，标记只出现在该对象有已记录位置的层上；MIP 显示全部未删除对象。左上角 **Astrocyte 总数：N** 是整个会话中已接受细胞的总数，不是当前层单独的计数。
 
 投影中出现重叠细胞时，对照原始 Z 层中的各通道核对其位置。判断每个候选对象是否对应细胞、多个记录是否属于同一细胞，以及是否有遗漏细胞需要手动添加。同一细胞可在多个 Z 层显示同一个计数编号。触控板捏合可缩放，滚动或拖动可平移，按 **0** 将图像缩放至适合窗口。
+
+<!-- leap-media:start counting-review-views -->
+<a href="images/counting-review-mip.png"><img src="images/counting-review-mip.png" alt="MIP 视图同时显示已接受的记录和待审核的候选对象。" width="960"></a>
+
+*MIP 视图同时显示已接受的记录和待审核的候选对象。*
+
+<a href="images/counting-review-z-plane.png"><img src="images/counting-review-z-plane.png" alt="计数编辑器显示 287 层中的第 84 层，底部提供 Z 滑块和通道开关。" width="960"></a>
+
+*计数编辑器显示 287 层中的第 84 层，底部提供 Z 滑块和通道开关。*
+<!-- leap-media:end counting-review-views -->
 
 ## 理解四种标记
 

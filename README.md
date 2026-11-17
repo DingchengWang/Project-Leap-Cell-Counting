@@ -8,6 +8,12 @@ Researchers can inspect cells across the original Z planes, add missed cells, me
 
 Cell Counting **1.0.0** runs within **Project Leap v1.0.0**. Download the main application from the [Project Leap download page](https://dingchengwang.github.io/Project-Leap/en/downloads/).
 
+<!-- leap-media:start counting-input-overview -->
+<a href="docs/images/counting-input-overview.png"><img src="docs/images/counting-input-overview.png" alt="The input screen shows the imported image and its channel settings." width="960"></a>
+
+*The input screen shows the imported image and its channel settings.*
+<!-- leap-media:end counting-input-overview -->
+
 ## Use the module
 
 In Project Leap, open **Modules & Maintenance**, find **Cell Counting**, and click **Install analysis module**. Once installation finishes, open **Cell Counting** from the sidebar, then follow the user guide to select an image, run the analysis, and review the count.

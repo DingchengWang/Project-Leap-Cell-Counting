@@ -8,6 +8,12 @@ Cell Counting 是 **Project Leap** 的细胞空间定位与计数模块，面向
 
 Cell Counting **1.0.0** 在 **Project Leap v1.0.0** 内运行。主程序下载见 [Project Leap 下载页面](https://dingchengwang.github.io/Project-Leap/zh/downloads/)。
 
+<!-- leap-media:start counting-input-overview -->
+<a href="docs/images/counting-input-overview.png"><img src="docs/images/counting-input-overview.png" alt="输入界面显示已导入的图像和通道设置。" width="960"></a>
+
+*输入界面显示已导入的图像和通道设置。*
+<!-- leap-media:end counting-input-overview -->
+
 ## 使用模块
 
 在 Project Leap 内打开**功能与维护**，找到**细胞计数**，点击**安装分析模块**。安装完成后，从侧边栏打开**细胞计数**，再按使用指南选择图像、运行分析并审核计数。
