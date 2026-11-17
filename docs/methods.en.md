@@ -12,15 +12,15 @@ The application supplies one image series and one time point from an unsigned 8-
 
 All scientific masks use the original image grid. Coordinates, physical distances, and source-Z intersections remain tied to that grid. The support marker name records the user's channel declaration; eGFP, Biocytin, ALDH1L1, and custom names use the same analysis rules. Display colors and channel visibility affect the review image only.
 
-## Find local work across the stack
+## Locate signal across the stack
 
 The engine scans every source Z plane of the required channels. It computes exact intensity summaries on 8 × 8 and 16 × 16 XY blocks, including edge-block sample counts, and builds full-stack maximum-intensity projections for selected display channels. These summaries locate spatial concentrations and schedule work on the original pixels; their regions are not counted as cells or used as segmentation input.
 
-DAPI localization uses the 16-pixel summaries to retain above-threshold concentration regions across Z. Large regions are partitioned into bounded computation windows while retaining all qualified foreground. Each event supplies a local Z range and an XY location. That Z range starts the investigation; original-volume recovery determines the observed object's axial extent.
+DAPI localization uses the 16-pixel summaries to retain above-threshold concentration regions across Z. Large regions are partitioned into bounded computation windows while retaining all qualified foreground. Each retained region defines a local detection event, with an initial Z range and XY location. The engine then uses the original volume to recover the object's axial extent.
 
 ## Obtain local DAPI model evidence
 
-For each retained event, the engine takes the maximum of the original DAPI values over that event's local Z range. A real-source XY window supplies 256 × 256 pixels to the fixed model; only an image axis that is itself smaller than 256 pixels receives computational padding, which is removed before mask generation. The feature is normalized once using its measured 1st and 99th percentiles.
+For each retained event, the engine takes the maximum of the original DAPI values over that event's local Z range. An XY window from the original image supplies 256 × 256 pixels to the fixed model; only an image axis that is itself smaller than 256 pixels receives computational padding, which is removed before mask generation. The feature is normalized once using its measured 1st and 99th percentiles.
 
 The fixed configuration is:
 
@@ -54,7 +54,7 @@ Second, an independent route locates concentrations in the support channel and e
 
 These routes use the same source-statistics pass and can run concurrently. Body detection does not use a DAPI detection or Cellpose mask as an entry requirement. The engine retains every qualified work region; a capacity error stops the run instead of exporting an incomplete count.
 
-## Resolve cell identity globally
+## Associate nuclei and bodies
 
 The engine measures each potentially associated nucleus–body pair in original coordinates. A geometric match requires all of the following:
 

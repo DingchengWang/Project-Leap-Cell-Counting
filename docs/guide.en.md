@@ -2,15 +2,15 @@
 
 [中文](guide.zh.md) · [Methods](methods.en.md) · [Repository home](../README.md) · [Project Leap website](https://dingchengwang.github.io/Project-Leap/en/)
 
-This guide describes Cell Counting **1.0.0** in **Project Leap v1.0.0**. Download the main application from the [Project Leap download page](https://dingchengwang.github.io/Project-Leap/en/downloads/). The workflow below starts inside the Project Leap application.
+This guide describes Cell Counting **1.0.0** in **Project Leap v1.0.0**. Download the main application from the [Project Leap download page](https://dingchengwang.github.io/Project-Leap/en/downloads/).
 
 ## Install and select an image
 
-1. Open the Cell Counting module in Project Leap and use its install action if it is not installed. The application installs the module and its shared scientific runtime and fixed model.
+1. Open the Cell Counting module in Project Leap and install it if needed. The application also installs the required components.
 2. Click **Choose image…**, or drag one `.tif` or `.tiff` file into the input area. Use an 8-bit or 16-bit multichannel fluorescence image containing DAPI and a separate support marker.
-3. If the file contains multiple image series or time points, choose the intended **Image series** and **Time point**. These choices select the data for this run.
+3. If the file contains multiple image series or time points, choose the intended **Image series** and **Time point**.
 4. Check the selected **DAPI counting channel** against the image. The application tries to identify it automatically; choose the correct source channel if it is missing or wrong.
-5. Select a different **Support channel**, then choose its **Support marker**: eGFP, Biocytin, ALDH1L1, or a custom name. Both selections are required. The marker records which signal you are using to assess bodies and nuclear surroundings. Current real-data evaluation is limited to Biocytin; see [Methods](methods.en.md#evidence-scope) for the evaluation scope.
+5. Select a different **Support channel**, then choose its **Support marker**: eGFP, Biocytin, ALDH1L1, or a custom name. Both selections are required and identify the auxiliary signal used to assess bodies and nuclear surroundings. See [Methods](methods.en.md#evidence-scope) for the marker evaluation scope.
 6. Under **Display channels and colors**, select at least one source channel for review. Keep the channels you will need for comparing DAPI and support signal. In each channel's color text field, enter a `#RRGGBB` value or leave it empty to use the default color. You can toggle these selected channels during review.
 
 The application automatically checks the image and calibration before running. Multiplane images need valid X/Y/Z values in micrometres and square XY sampling; true single-plane images need valid X/Y values. If the application reports missing or incompatible calibration, use a TIFF exported with the correct source metadata.
@@ -21,7 +21,7 @@ Click **Start automatic counting**. The application analyzes the selected image 
 
 Use **MIP** to view the maximum-intensity projection across the stack, then move the Z slider to inspect the original planes. The interface displays Z planes starting at 1. On a single plane, a marker appears only when that object has a recorded position on the plane; MIP shows all non-deleted objects. The top-left **Total Astrocyte: N** is the number of accepted cells across the entire session, not a separate count of the current plane.
 
-Work through the Z planes while comparing the selected channels. Check whether a proposed object corresponds to a cell, whether two records belong to the same cell, and whether an unmarked cell should be added. A single cell can appear on several planes with the same count number. Pinch to zoom, scroll or drag to pan, and press **0** to fit the image to the window.
+Where cells overlap in the projection, compare the selected channels on the original Z planes to check their positions. Check whether each proposed object corresponds to a cell, whether two records belong to the same cell, and whether an unmarked cell should be added. A single cell can appear on several planes with the same count number. Pinch to zoom, scroll or drag to pan, and press **0** to fit the image to the window.
 
 ## Interpret the four labels
 
@@ -32,7 +32,7 @@ Work through the Z planes while comparing the selected channels. Check whether a
 | Unrecognized | Yellow point | Other review object | Only after acceptance |
 | Neurons | Purple square | Excluded object | No, unless accepted manually |
 
-These labels describe the editor's counting states. Neurons is the excluded category; its biological identity needs to be assessed from the staining and image evidence. High Likelihood remains under review until you accept it using the actions below.
+These labels describe counting states. Assess biological cell identity from the staining and image evidence.
 
 ## Adjust the count
 
@@ -51,7 +51,7 @@ For a manual point tied to a particular Z plane, add it while viewing that plane
 
 ## Confirm and reopen
 
-The editor saves a draft as you edit. To create the result files, click **Confirm & save Astrocyte count**. You can leave objects in High Likelihood or Unrecognized; only accepted, non-deleted objects enter the confirmed count. After a successful save, the editor closes and the input area is ready for a new image. If saving fails, the current review session remains open.
+The editor saves a draft as you edit. To create the result files, click **Confirm & save Astrocyte count**. You can leave objects in High Likelihood or Unrecognized; only accepted, non-deleted objects enter the confirmed count. After a successful save, the editor closes and the input area is ready for a new image. If saving fails, the current review session remains open. Further edits to a reopened result remain a draft until you confirm again.
 
 To continue later, open **Jobs & Results**, expand the task, and click **Reopen count** for a confirmed result or **Continue count review** for unfinished review. The editor restores the saved result and an existing draft when present. Use **Open results folder** to access a completed task's files. Confirm the current review before switching to another counting task.
 
@@ -95,7 +95,7 @@ The engine also retains analysis, label arrays, observations, and diagnostics in
 | `source_observations` | Nuclear/body observations, their mask references, original bounds, and measured evidence. |
 | `support`, `association` | Nuclear support measurements and nucleus–body association records, where present. |
 | `parent_ids`, `lineage`, `reference_z`, `anchor_parent_id` | Merge provenance: immediate parents, ancestry IDs, retained parent Z references, and the parent supplying the representative XY anchor. |
-| `label_ids` | Legacy merged-label references; modern multi-observation records retain mask identities in `source_observations`. |
+| `label_ids` | Legacy merged-label references; cells containing several observations retain mask identities in `source_observations`. |
 | `point_metadata` | Complete saved point record as JSON. |
 
 Structured columns contain JSON within the CSV cell. For example, UI **Z plane 6** corresponds to source index `5`; a cell with anchors on planes `5`, `6`, and `7` still occupies one CSV row and contributes one to `count`.
